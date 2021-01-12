@@ -3,6 +3,7 @@
         <v-card
           height="100%"
           width="256"
+          style="border-radius: 0"
         >
         <v-navigation-drawer permanent>
           <v-list-item>

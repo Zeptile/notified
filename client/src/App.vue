@@ -1,8 +1,8 @@
 <template>
   <v-app dark>
       <div class="app-container">
-        <navigation style="position: fixed"></navigation>
-        <div class="ghost-nav"></div>
+        <navigation style="position: sticky"></navigation>
+<!--         <div class="ghost-nav"></div> -->
         <div class="content-container">
           <v-progress-linear
           v-if="loading"

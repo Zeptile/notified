@@ -21,6 +21,7 @@
       label="Search Note"
       placeholder="Accounting"
       append-icon="mdi-magnify"
+      style="padding: 12px;"
       outlined
     ></v-text-field>
 
