@@ -1,49 +1,16 @@
-/* import Repository from './Repository';
-import store from '@/store';
-
-const ressource = '/books';
-
-export default {
-    getBooks() {
-        return Repository.get(`${ressource}`);
-    },
-    getBooksById(id) {
-        return Repository.get(`${ressource}/${id}`);
-    },
-    postBook(book) {
-        return Repository.post(`${ressource}`, book);
-    },
-    updateBook(book) {
-        return Repository.put(`${ressource}`, book);
-    },
-    deleteBook(bookId) {
-        return Repository.delete(`${ressource}/${bookId}`);
-    },
-    async updateBooks() {
-        try {
-            //store.commit('loading', true);
-            const books = await this.getBooks();
-            console.log(books.data)
-            store.commit('bookResults', books.data);
-        } catch (error) {
-            store.commit('bookResults', []);
-            console.error('Error while trying to load books!', error);
-        } finally {
-            // store.commit('loading', false);
-        }
-    }
-}
- */
 import Vue from 'vue'
 import store from '@/store';
 
-const baseURL = 'http://localhost:9982/api';
-
 class BookService {
+    baseURL;
     ressource = 'books';
 
+    constructor() {
+        this.baseURL = process.env.VUE_APP_API_ENDPOINT;
+    }
+
     async getBooks() {
-        return Vue.http.get(`${baseURL}/${this.ressource}`)
+        return Vue.http.get(`${this.baseURL}/${this.ressource}`)
         .then(result => result.json())
         .catch(err => {
             throw err;
@@ -51,7 +18,7 @@ class BookService {
     }
 
     async getBooksById(id) {
-        return Vue.http.get(`${baseURL}/${this.ressource}/${id}`)
+        return Vue.http.get(`${this.baseURL}/${this.ressource}/${id}`)
         .then(result => result.json())
         .catch(err => {
             throw err;
@@ -59,7 +26,7 @@ class BookService {
     }
 
     async postBook(book) {
-        return Vue.http.post(`${baseURL}/${this.ressource}`, book)
+        return Vue.http.post(`${this.baseURL}/${this.ressource}`, book)
         .then(result => result.json())
         .catch(err => {
             throw err;
@@ -67,7 +34,7 @@ class BookService {
     }
 
     async updateBook(book) {
-        return Vue.http.put(`${baseURL}/${this.ressource}`, book)
+        return Vue.http.put(`${this.baseURL}/${this.ressource}`, book)
         .then(result => result.json())
         .catch(err => {
             throw err;
@@ -75,7 +42,7 @@ class BookService {
     }
 
     async deleteBook(bookId) {
-        return Vue.http.delete(`${baseURL}/${this.ressource}/${bookId}`)
+        return Vue.http.delete(`${this.baseURL}/${this.ressource}/${bookId}`)
         .then(result => result.json())
         .catch(err => {
             throw err;

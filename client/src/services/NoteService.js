@@ -1,15 +1,39 @@
-import Repository from './Repository';
+import Vue from 'vue'
 
-const ressource = '/notes';
+class NoteService {
+    baseURL;
+    ressource = 'notes';
 
-export default {
-    postNote(note, bookId) {
-        return Repository.post(`${ressource}/${bookId}`, note);
-    },
-    updateNote(note, bookId) {
-        return Repository.put(`${ressource}/${bookId}`, note);
-    },
-    deleteNote(note, bookId) {
-        return Repository.put(`${ressource}/delete/${bookId}`, note);
+    constructor() {
+        this.baseURL = process.env.VUE_APP_API_ENDPOINT;
+    }
+
+    async postNote(note, bookId) {
+        return Vue.http.post(`${this.baseURL}/${this.ressource}/${bookId}`, note)
+        .then(result => result.json())
+        .catch(err => {
+            throw err;
+        })
+    }
+
+    async updateNote(note, bookId) {
+        return Vue.http.put(`${this.baseURL}/${this.ressource}/${bookId}`, note)
+        .then(result => result.json())
+        .catch(err => {
+            throw err;
+        })
+    }
+
+    async deleteNote(note, bookId) {
+        return Vue.http.put(`${this.baseURL}/${this.ressource}/delete/${bookId}`, note)
+        .then(result => result.json())
+        .catch(err => {
+            throw err;
+        })
     }
 }
+
+const NoteServiceSingleton = new NoteService();
+Object.freeze(NoteServiceSingleton);
+
+export default NoteServiceSingleton;
